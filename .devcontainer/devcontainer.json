@@ -1,0 +1,108 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/postgres
+{
+	"name": "Python FastAPI Template",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	"features": {
+		"ghcr.io/devcontainers-contrib/features/isort:2": {},
+		"ghcr.io/devcontainers-contrib/features/pylint:2": {}
+	},
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"sqltools.connections": [
+					{
+						"name": "Container database",
+						"driver": "PostgreSQL",
+						"previewLimit": 50,
+						"server": "postgres",
+						"port": 5432,
+						"database": "postgres",
+						"username": "postgres",
+						"password": "postgres"
+					}
+				],
+				"python.defaultInterpreterPath": "/usr/local/bin/python",
+				"python.languageServer": "Pylance",
+				"python.linting.enabled": true,
+				"python.linting.pylintEnabled": true,
+				"python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
+				"python.formatting.blackPath": "/usr/local/py-utils/bin/black",
+				"python.formatting.yapfPath": "/usr/local/py-utils/bin/yapf",
+				"python.linting.banditPath": "/usr/local/py-utils/bin/bandit",
+				"python.linting.flake8Path": "/usr/local/py-utils/bin/flake8",
+				"python.linting.mypyPath": "/usr/local/py-utils/bin/mypy",
+				"python.linting.pycodestylePath": "/usr/local/py-utils/bin/pycodestyle",
+				"python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
+				"python.linting.pylintPath": "/usr/local/py-utils/bin/pylint",
+				"python.autoComplete.extraPaths": [
+					"/usr/local/lib/python3.11/site-packages"
+				],
+				"editor.rulers": [
+					120
+				],
+				"python.linting.pylintArgs": [
+					"--enable=F,E,C,R",
+					"--disable=E1101,C0111, W0105, C0103, E0611",
+					"--max-line-length=120"
+				],
+				"python.formatting.autopep8Args": [
+					"--ignore",
+					"E70",
+					"--max-line-length",
+					"120"
+				],
+				"[python]": {
+					"editor.formatOnSave": true,
+					"editor.codeActionsOnSave": {
+						"source.organizeImports": true
+					}
+				},
+				"isort.path": [
+					"/usr/local/py-utils/bin/isort"
+				],
+				"isort.args": [
+					"--profile",
+					"black",
+					"--line-width",
+					"120"
+				],
+				"files.insertFinalNewline": true,
+				"files.trimTrailingWhitespace": true,
+				"[markdown]": {
+					"files.trimTrailingWhitespace": false,
+					"editor.renderWhitespace": "boundary"
+				},
+				"[plaintext]": {
+					"files.trimTrailingWhitespace": false,
+					"editor.renderWhitespace": "boundary"
+				},
+				"autoDocstring.docstringFormat": "numpy",
+				"python.testing.pytestArgs": [
+					"test"
+				],
+				"python.testing.unittestEnabled": false,
+				"python.testing.nosetestsEnabled": false,
+				"python.testing.pytestEnabled": true
+			}
+		},
+		"extensions": [
+			"donjayamanne.githistory",
+			"eamodio.gitlens",
+			"njpwerner.autodocstring",
+			"coenraads.bracket-pair-colorizer",
+			"saikou9901.evilinspector",
+			"streetsidesoftware.code-spell-checker",
+			"ionutvmi.path-autocomplete",
+			"mtxr.sqltools",
+			"mtxr.sqltools-driver-pg",
+			"ms-vsliveshare.vsliveshare",
+			"GitHub.copilot",
+			"gencay.vscode-chatgpt"
+		]
+	},
+	"postCreateCommand": "bash .devcontainer/post-create.sh",
+	"remoteUser": "vscode"
+}
