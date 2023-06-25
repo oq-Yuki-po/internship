@@ -1,1 +1,1 @@
-from app.schemas.requests.book import BookSaveIn
+from app.schemas.requests.record import RecordSaveIn
