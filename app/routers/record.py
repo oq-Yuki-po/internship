@@ -16,6 +16,7 @@ router = APIRouter(
              summary='Create a record')
 async def save(record: RecordSaveIn) -> RecordSaveOut:
     try:
+        print(record)
 
         return RecordSaveOut(message='success')
     finally:

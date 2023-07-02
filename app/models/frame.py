@@ -3,10 +3,10 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Optional
 
-from sqlalchemy import Column, ForeignKey, Integer, String, select
+from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
-from app.models import BaseModel, Engine, UserModel, session
+from app.models import BaseModel, UserModel, session
 
 
 class FrameModel(BaseModel):

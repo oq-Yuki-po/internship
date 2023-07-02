@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 
-from app.models.setting import initialize_db, initialize_table
 from app.routers import record_router
 
 APP_TITLE = "Internship FastAPI Sample"
