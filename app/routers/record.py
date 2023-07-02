@@ -1,8 +1,9 @@
 from fastapi import APIRouter
+
 from app.models import session
 from app.routers.setting import AppRoutes
-from app.schemas.responses import RecordSaveOut
 from app.schemas.requests import RecordSaveIn
+from app.schemas.responses import RecordSaveOut
 
 router = APIRouter(
     prefix=AppRoutes.Records.PREFIX,
@@ -15,7 +16,6 @@ router = APIRouter(
              summary='Create a record')
 async def save(record: RecordSaveIn) -> RecordSaveOut:
     try:
-        print(record)
 
         return RecordSaveOut(message='success')
     finally:
