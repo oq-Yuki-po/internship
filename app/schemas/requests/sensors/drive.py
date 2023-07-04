@@ -3,8 +3,8 @@ from enum import Enum
 from pydantic import BaseModel, Field
 
 
-class DriveType(str, Enum):
-    """Drive type enum.
+class DriveType(int, Enum):
+    """Drive type enum .
     url : https://learn.microsoft.com/ja-jp/dotnet/api/system.io.drivetype?view=net-7.0
     """
     Unknown = 0
@@ -37,10 +37,10 @@ class DriveSensor(BaseModel):
 
     drive_letter: str = Field(title='drive_letter', min_length=1, max_length=1)
     drive_type: DriveType = Field(title='drive_type')
-    volume_name: str = Field(title='volume_name', min_length=1, max_length=255)
-    file_system: str = Field(title='file_system', min_length=1, max_length=255)
-    all_space: str = Field(title='all_space', min_length=1, max_length=16)
-    free_space: str = Field(title='free_space', min_length=1, max_length=16)
+    volume_name: str = Field(title='volume_name', min_length=0, max_length=255)
+    file_system: str = Field(title='file_system', min_length=0, max_length=255)
+    all_space: str = Field(title='all_space', min_length=0, max_length=16)
+    free_space: str = Field(title='free_space', min_length=0, max_length=16)
 
     class Config:
         schema_extra = {

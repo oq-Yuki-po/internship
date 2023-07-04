@@ -3,7 +3,7 @@ from enum import Enum
 from pydantic import BaseModel, Field
 
 
-class IpPortType(str, Enum):
+class IpPortType(int, Enum):
     """IpPort type enum."""
     listen = 0
     establish = 1
@@ -33,8 +33,8 @@ class IpPortSensor(BaseModel):
     port: int = Field(title='port', ge=1, le=65535)
     process_id: int = Field(title='process_id', ge=0, le=65535)
 
-    remote_ip: str = Field(title='remote_ip', min_length=1, max_length=39)
-    remote_port: int = Field(title='remote_port', ge=1, le=65535)
+    remote_ip: str = Field(title='remote_ip', min_length=0, max_length=39)
+    remote_port: int = Field(title='remote_port', ge=0, le=65535)
 
     class Config:
         schema_extra = {
