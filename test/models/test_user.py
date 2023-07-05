@@ -18,7 +18,7 @@ class TestUser():
         user_id, user_name, user_ip, user_machine_name = user.id, user.name, user.ip, user.machine_name
         db_session.close()
 
-        fetched_user = UserModel.fetch_by_name_ip_machine_name(user_name, user_ip, user_machine_name)
+        fetched_user = UserModel._fetch_by_name_ip_machine_name(user_name, user_ip, user_machine_name)
 
         assert fetched_user.id == user_id
 
@@ -30,7 +30,7 @@ class TestUser():
 
         user = UserFactory()
 
-        fetched_user = UserModel.fetch_by_name_ip_machine_name(user.name, user.ip, user.machine_name)
+        fetched_user = UserModel._fetch_by_name_ip_machine_name(user.name, user.ip, user.machine_name)
 
         assert fetched_user is None
 
@@ -46,7 +46,7 @@ class TestUser():
 
         user = UserModel(name=expected_user_name, ip=expected_user_ip, machine_name=expected_user_machine_name)
 
-        saved_user_id = UserModel.save(user)
+        saved_user_id = user.save(user)
         db_session.commit()
         db_session.close()
 
@@ -78,6 +78,6 @@ class TestUser():
 
         user = UserModel(name=test_user_name, ip=test_user_ip, machine_name=test_user_machine_name)
 
-        saved_user_id = UserModel.save(user)
+        saved_user_id = user.save(user)
 
         assert saved_user_id == expected_user_id

@@ -61,7 +61,7 @@ class UserModel(BaseModel):
         return f"<UserModel(name={self.name}) ip_address={self.ip} machine_name={self.machine_name}>)"
 
     @classmethod
-    def save(cls, user: User) -> int:
+    def save(cls, user: UserModel) -> int:
         """
         save user
 
@@ -80,16 +80,15 @@ class UserModel(BaseModel):
             saved user id
         """
 
-        if (user_model := cls.fetch_by_name_ip_machine_name(user.name, user.ip, user.machine_name)) is None:
+        if (user_model := cls._fetch_by_name_ip_machine_name(user.name, user.ip, user.machine_name)) is None:
             # if user is not exist, save user
-            saved_user = cls(name=user.name, ip=user.ip, machine_name=user.machine_name)
-            session.add(saved_user)
+            session.add(user)
             session.flush()
-            return saved_user.id
+            return user.id
         return user_model.id
 
     @classmethod
-    def fetch_by_name_ip_machine_name(cls, name: str, ip: str, machine_name: str) -> Optional[UserModel]:
+    def _fetch_by_name_ip_machine_name(cls, name: str, ip: str, machine_name: str) -> Optional[UserModel]:
         """
         fetch user by name, ip, machine_name
 
@@ -113,7 +112,7 @@ class UserModel(BaseModel):
 
         stmt = select(cls.id).where(cls.name == name
                                     and cls.ip == ip
-                                    and machine_name == machine_name)
+                                    and cls.machine_name == machine_name)
 
         """SQL
         SELECT users.id AS users_id
