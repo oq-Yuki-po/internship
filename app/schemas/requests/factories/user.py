@@ -11,7 +11,7 @@ class UserFactory(Factory):
 
     machine_name = "sample machine name"
     name = Faker('name')
-    ip_address = Faker('ipv4')
+    ip = Faker('ipv4')
 
 
 if __name__ == '__main__':

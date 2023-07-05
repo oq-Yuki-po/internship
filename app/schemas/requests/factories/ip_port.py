@@ -9,7 +9,7 @@ class IpPortSensorFactory(Factory):
 
         model = IpPortSensor
 
-    state = "0"
+    state = 0
     ip = Faker('ipv4')
     port = Faker('port_number')
     process_id = Sequence(lambda n: n)

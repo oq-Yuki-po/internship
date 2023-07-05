@@ -28,7 +28,7 @@ class RecordSaveIn(BaseModel):
 
     user: User = Field(title='user', description='user')
     created_at: str = Field(title='created_at', min_length=19, max_length=19)
-    session_id: str = Field(title='session id', min_length=32, max_length=32)
+    session_id: str = Field(title='session id', min_length=36, max_length=36)
     drive_sensors: list[DriveSensor] = Field(title='drive_sensor',
                                              description='drive_sensor')
     ip_port_sensors: list[IpPortSensor] = Field(title='ip_port_sensor',
@@ -43,7 +43,7 @@ class RecordSaveIn(BaseModel):
             'example': {
                 'user': User.Config.schema_extra['example'],
                 'created_at': '2021-01-01 00:00:00',
-                'session_id': 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+                'session_id': '8e140dd8-f921-4988-a91a-53cec6b3ad28',
                 'drive_sensors': [DriveSensor.Config.schema_extra['example']],
                 'ip_port_sensors': [IpPortSensor.Config.schema_extra['example']],
                 'process_sensors': [ProcessSensor.Config.schema_extra['example']],

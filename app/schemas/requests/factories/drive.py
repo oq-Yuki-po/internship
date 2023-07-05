@@ -9,7 +9,7 @@ class DriveSensorFactory(Factory):
         model = DriveSensor
 
     drive_letter = "C"
-    drive_type = "3"
+    drive_type = 3
     volume_name = 'Local Disk'
     file_system = 'NTFS'
     all_space = '512GB'
