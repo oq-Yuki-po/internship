@@ -3,6 +3,7 @@ import os
 import pytest
 from fastapi.testclient import TestClient
 from PIL import Image
+from sqlalchemy.orm.scoping import scoped_session
 from sqlalchemy.sql.ddl import CreateSchema, DropSchema
 from sqlalchemy_utils import database_exists
 from sqlalchemy_utils.functions.database import create_database
@@ -73,7 +74,7 @@ def app_client():
 
 
 @pytest.fixture()
-def db_session(request):
+def db_session(request) -> scoped_session:
 
     request.addfinalizer(remove_session)
     return session
