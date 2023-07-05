@@ -1,13 +1,13 @@
 from factory import Factory, Sequence
 from factory.faker import Faker
 
-from app.schemas.requests.sensors import ProcessSensor
+from app.schemas.requests.sensors import RequestProcessSensor
 
 
 class ProcessSensorFactory(Factory):
     class Meta:
 
-        model = ProcessSensor
+        model = RequestProcessSensor
 
     file_path = Faker('file_path')
     process_name = Faker('file_name')
