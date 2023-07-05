@@ -1,13 +1,13 @@
 from factory import Factory, Sequence
 from factory.faker import Faker
 
-from app.schemas.requests.sensors import IpPortSensor
+from app.schemas.requests.sensors import RequestIpPortSensor
 
 
 class IpPortSensorFactory(Factory):
     class Meta:
 
-        model = IpPortSensor
+        model = RequestIpPortSensor
 
     state = 0
     ip = Faker('ipv4')

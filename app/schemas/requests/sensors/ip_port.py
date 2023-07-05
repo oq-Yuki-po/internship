@@ -9,7 +9,7 @@ class IpPortType(int, Enum):
     establish = 1
 
 
-class IpPortSensor(BaseModel):
+class RequestIpPortSensor(BaseModel):
     """IpPort sensor schema for request body validation.
 
     Parameters
