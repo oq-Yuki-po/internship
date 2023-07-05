@@ -114,6 +114,7 @@ class DriveSensorModel(BaseModel):
         frame_id : int
             frame id
         """
+        drive_sensors = []
         for request_drive_sensor in request_drive_sensors:
             drive_sensor_model = cls(
                 drive_letter=request_drive_sensor.drive_letter,
@@ -124,4 +125,5 @@ class DriveSensorModel(BaseModel):
                 free_space=request_drive_sensor.free_space,
                 frame_id=frame_id
             )
-            session.add(drive_sensor_model)
+            drive_sensors.append(drive_sensor_model)
+        session.add_all(drive_sensors)

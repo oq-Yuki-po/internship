@@ -6,7 +6,6 @@ from typing import Optional
 from sqlalchemy import Column, Integer, String, select
 
 from app.models import BaseModel, Engine, session
-from app.schemas.requests import User
 
 
 class UserModel(BaseModel):
