@@ -1,6 +1,11 @@
 from pydantic import BaseModel, Field
 
-from app.schemas.requests.sensors import RequestDriveSensor, RequestIpPortSensor, RequestProcessSensor, ScreenshotSensor
+from app.schemas.requests.sensors import (
+    RequestDriveSensor,
+    RequestIpPortSensor,
+    RequestProcessSensor,
+    RequestScreenshotSensor,
+)
 from app.schemas.requests.user import User
 
 
@@ -22,7 +27,7 @@ class RecordSaveIn(BaseModel):
         Ip port sensor schema list.
     process_sensor : list[RequestProcessSensorsSensorsSensorsSensorsSensorsSensor]
         Process sensor schema list.
-    screenshot_sensor : ScreenshotSensor
+    screenshot_sensor : RequestScreenshotSensor
         Screenshot sensor schema.
     """
 
@@ -35,8 +40,8 @@ class RecordSaveIn(BaseModel):
                                                        description='ip_port_sensor')
     process_sensors: list[RequestProcessSensor] = Field(title='process_sensor',
                                                         description='process_sensor')
-    screenshot_sensor: ScreenshotSensor = Field(title='screenshot_sensor',
-                                                description='screenshot_sensor')
+    screenshot_sensor: RequestScreenshotSensor = Field(title='screenshot_sensor',
+                                                       description='screenshot_sensor')
 
     class Config:
         schema_extra = {
@@ -47,6 +52,6 @@ class RecordSaveIn(BaseModel):
                 'drive_sensors': [RequestDriveSensor.Config.schema_extra['example']],
                 'ip_port_sensors': [RequestIpPortSensor.Config.schema_extra['example']],
                 'process_sensors': [RequestProcessSensor.Config.schema_extra['example']],
-                'screenshot_sensor': ScreenshotSensor.Config.schema_extra['example']
+                'screenshot_sensor': RequestScreenshotSensor.Config.schema_extra['example']
             }
         }

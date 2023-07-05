@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
 
 
-class ScreenshotSensor(BaseModel):
+class RequestScreenshotSensor(BaseModel):
     """
     Screenshot sensor schema for request body validation.
 
