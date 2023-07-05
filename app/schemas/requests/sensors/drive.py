@@ -16,7 +16,7 @@ class DriveType(int, Enum):
     Ram = 6
 
 
-class DriveSensor(BaseModel):
+class RequestDriveSensor(BaseModel):
     """Drive sensor schema for request body validation.
 
     Parameters
