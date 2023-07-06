@@ -1,13 +1,12 @@
 from functools import wraps
-from logging import getLogger
 
 from fastapi import HTTPException
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.errors.custom_exception import CustomException
 from app.errors.message import ErrorMessage
-
-app_logger = getLogger('app')
+from app.logger import app_logger
+from app.models import session
 
 
 def handle_errors(func):
@@ -29,4 +28,6 @@ def handle_errors(func):
         except Exception as exc:
             app_logger.error(exc)
             raise HTTPException(detail=ErrorMessage.INTERNAL_SERVER_ERROR, status_code=500) from exc
+        finally:
+            session.close()
     return wrapper

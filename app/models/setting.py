@@ -6,8 +6,8 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import declarative_base, declared_attr, scoped_session, sessionmaker
 from sqlalchemy_utils import create_database, database_exists
 
-from app import app_logger
 from app.errors.exceptions import DataBaseConnectionError, InternalServerError
+from app.logger import app_logger
 
 # Engine
 SERVER = os.getenv('POSTGRES_SERVER')
