@@ -7,6 +7,7 @@ from sqlalchemy import Column, Enum, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
 from app.models import BaseModel, FrameModel, session
+from app.models.setting import metadata
 from app.schemas.requests.sensors.drive import DriveType, RequestDriveSensor
 
 
@@ -38,7 +39,7 @@ class DriveSensorModel(BaseModel):
     __tablename__ = 'drive_sensors'
     id = Column(Integer, primary_key=True, autoincrement=True)
     drive_letter = Column(String(1), nullable=False, comment='drive letter')
-    drive_type = Column(Enum(DriveType), nullable=False, comment='drive type')
+    drive_type = Column(Enum(DriveType, metadata=metadata), nullable=False, comment='drive type')
     volume_name = Column(String(255), nullable=False, comment='volume name')
     file_system = Column(String(255), nullable=False, comment='file system')
     all_space = Column(String(16), nullable=False, comment='all space')

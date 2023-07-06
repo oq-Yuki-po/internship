@@ -7,6 +7,7 @@ from sqlalchemy import Column, Enum, ForeignKey, Integer, String, UniqueConstrai
 from sqlalchemy.orm import relationship
 
 from app.models import BaseModel, FrameModel, session
+from app.models.setting import metadata
 from app.schemas.requests.sensors.ip_port import IpPortType, RequestIpPortSensor
 
 
@@ -37,7 +38,8 @@ class IpPortSensorModel(BaseModel):
     """
     __tablename__ = 'ip_port_sensors'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    state = Column(Enum(IpPortType), nullable=False, comment='ip port type enum. listen or establish')
+    state = Column(Enum(IpPortType, metadata=metadata), nullable=False,
+                   comment='ip port type enum. listen or establish')
     ip = Column(String(39), nullable=False, comment='ip address')
     port = Column(Integer, nullable=False, comment='port')
     process_id = Column(Integer, nullable=False, comment='process id')
