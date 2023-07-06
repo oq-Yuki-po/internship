@@ -25,8 +25,6 @@ class FrameFactory(SQLAlchemyModelFactory):
     def frame_create_time(self):
         date = datetime.now()
         return date.time()
-
-    # frame_create_time = Faker('date_time_between', start_date='-1y', end_date='now')
     user_session = SubFactory(UserSessionFactory)
     created_at = datetime.now()
     updated_at = datetime.now()
