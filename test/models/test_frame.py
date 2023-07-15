@@ -128,3 +128,24 @@ class TestFrameModel():
         assert fetched_user_session[1].name == test_user_name_2
         assert fetched_user_session[1].start_time == test_user_session_start_time_2
         assert fetched_user_session[1].end_time == test_user_session_end_time_2
+
+    def test_fetch_frame_by_session_id_frame_no(self, db_session):
+        """
+        test fetch frame by session id
+        check fetched frame id is equal to saved frame id
+        """
+
+        user_session = UserSessionFactory()
+        frame_1 = FrameFactory(user_session=user_session)
+        frame_2 = FrameFactory(user_session=user_session)
+        frame_3 = FrameFactory(user_session=user_session)
+        db_session.add_all([frame_1, frame_2, frame_3])
+        db_session.commit()
+        frame_id = frame_2.id
+        frame_create_time = frame_2.frame_create_time
+        user_session_id = user_session.session_id
+        db_session.close()
+
+        fetched_frame = FrameModel.fetch_frame_by_session_id_frame_no(user_session_id, 2)
+        assert fetched_frame.id == frame_id
+        assert fetched_frame.frame_create_time == frame_create_time.strftime('%Y-%m-%d %H:%M:%S')

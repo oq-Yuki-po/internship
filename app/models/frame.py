@@ -165,3 +165,40 @@ class FrameModel(BaseModel):
 
         fetch_result = session.execute(stmt).all()
         return fetch_result
+
+    @classmethod
+    def fetch_frame_by_session_id_frame_no(cls, session_id: str, frame_no: int):
+        """
+        fetch frame by session id and frame no
+
+        Parameters
+        ----------
+        session_id : str
+            session id of user which is uuid
+        frame_no : int
+            frame no
+        """
+
+        stmt = select(FrameModel.id,
+                      func.to_char(cls.frame_create_time,  # pylint: disable=not-callable
+                                   'YYYY-MM-DD HH24:MI:SS').label('frame_create_time')).\
+            join(UserSessionModel, cls.user_session_id == UserSessionModel.id).\
+            where(UserSessionModel.session_id == session_id).\
+            order_by(cls.frame_create_time).\
+            limit(1).\
+            offset(frame_no - 1)
+
+        """SQL
+        SELECT frames.id,
+            to_char(frames.frame_create_time, 'YYYY-MM-DD HH24:MI:SS') AS frame_create_time
+        FROM frames
+        JOIN user_sessions ON frames.user_session_id = user_sessions.id
+        WHERE user_sessions.session_id = %(session_id_1) s
+        ORDER BY frames.frame_create_time
+        LIMIT %(param_1) s
+        OFFSET %(param_2) s
+        """
+
+        fetch_result = session.execute(stmt).one()
+
+        return fetch_result
