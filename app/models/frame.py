@@ -137,9 +137,9 @@ class FrameModel(BaseModel):
                       UserSessionModel.session_id,
                       UserModel.name,
                       UserModel.machine_name,
-                      func.to_char(func.min(cls.frame_create_time),
+                      func.to_char(func.min(cls.frame_create_time),  # pylint: disable=not-callable
                                    'YYYY-MM-DD HH24:MI:SS').label('start_time'),
-                      func.to_char(func.max(cls.frame_create_time),
+                      func.to_char(func.max(cls.frame_create_time),  # pylint: disable=not-callable
                                    'YYYY-MM-DD HH24:MI:SS').label('end_time')) \
             .join(UserSessionModel, UserSessionModel.user_id == UserModel.id)\
             .join(cls, cls.user_session_id == UserSessionModel.id)\
