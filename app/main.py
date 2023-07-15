@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.routers import record_router, user_session_router
 
@@ -10,10 +11,19 @@ app = FastAPI(title=APP_TITLE,
               version=APP_VERSION,
               description=APP_DESCRIPTION)
 
+origins = [
+    "https://localhost",
+    "http://localhost",
+    "http://localhost:3000"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(record_router)
 app.include_router(user_session_router)
-
-# @app.on_event("startup")
-# async def startup_event():
-#     initialize_db()
-#     initialize_table()
