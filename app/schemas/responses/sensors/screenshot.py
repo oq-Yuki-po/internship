@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
 
 
-class ResponseScreenshotSensor(BaseModel):
+class ResponseScreenshotSensor(BaseModel):  # pylint: disable=duplicate-code
     """
     Screenshot sensor schema for response body validation.
 

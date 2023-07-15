@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field
 from app.schemas.requests.sensors import IpPortType
 
 
-class ResponseIpPortSensor(BaseModel):
+class ResponseIpPortSensor(BaseModel):  # pylint: disable=duplicate-code
     """IpPort sensor schema for response body validation.
 
     Parameters

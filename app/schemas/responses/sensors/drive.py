@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field
 from app.schemas.requests.sensors import DriveType
 
 
-class ResponseDriveSensor(BaseModel):
+class ResponseDriveSensor(BaseModel):  # pylint: disable=duplicate-code
     """Drive sensor schema for response body validation.
 
     Parameters

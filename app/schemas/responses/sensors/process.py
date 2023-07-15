@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
 
 
-class ResponseProcessSensor(BaseModel):
+class ResponseProcessSensor(BaseModel):  # pylint: disable=duplicate-code
     """
     Process sensor schema for response body validation.
 
