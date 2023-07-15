@@ -35,7 +35,7 @@ load-plugins=
     pylint.extensions.typing,
     pylint.extensions.redefined_variable_type,
     pylint.extensions.comparison_placement,
-    pylint.extensions.mccabe,
+    pylint.extensions.mccabe
 
 # Use multiple processes to speed up Pylint. Specifying 0 will auto-detect the
 # number of processors available to use.
@@ -110,7 +110,8 @@ disable=
     consider-alternative-union-syntax,
     pointless-string-statement,
     missing-raises-doc,
-    no-name-in-module
+    no-name-in-module,
+    duplicate-code
 
 [REPORTS]
 
