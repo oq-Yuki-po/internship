@@ -2,7 +2,7 @@ from sqlalchemy import select
 
 from app.models import DriveSensorModel
 from app.models.factories import DriveSensorFactory, FrameFactory
-from app.schemas.requests.sensors import RequestDriveSensor
+from app.schemas.requests.sensors import DriveType, RequestDriveSensor
 
 
 class TestDriveSensor():
@@ -17,7 +17,7 @@ class TestDriveSensor():
         db_session.flush()
 
         excepted_drive_letter = "C"
-        excepted_drive_type = 3
+        excepted_drive_type = DriveType.Fixed
         excepted_volume_name = "Local Disk"
         excepted_file_system = "NTFS"
         excepted_all_space = "512GB"
@@ -25,7 +25,7 @@ class TestDriveSensor():
 
         request_drive_sensor = RequestDriveSensor(
             drive_letter=excepted_drive_letter,
-            drive_type=excepted_drive_type,
+            drive_type=excepted_drive_type.value,
             volume_name=excepted_volume_name,
             file_system=excepted_file_system,
             all_space=excepted_all_space,
@@ -42,7 +42,7 @@ class TestDriveSensor():
 
         assert saved_drive_sensor.frame_id == frame.id
         assert saved_drive_sensor.drive_letter == excepted_drive_letter
-        assert saved_drive_sensor.drive_type == excepted_drive_type
+        assert saved_drive_sensor.drive_type == excepted_drive_type.name
         assert saved_drive_sensor.volume_name == excepted_volume_name
         assert saved_drive_sensor.file_system == excepted_file_system
         assert saved_drive_sensor.all_space == excepted_all_space

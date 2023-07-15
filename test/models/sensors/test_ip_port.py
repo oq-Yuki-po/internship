@@ -16,7 +16,7 @@ class TestIpPortSensor():
         db_session.add(frame)
         db_session.flush()
 
-        excepted_state = IpPortType.listen.value
+        excepted_state = IpPortType.listen
         excepted_ip = '192.102.222.234'
         excepted_port = 8080
         excepted_process_id = 1234
@@ -24,7 +24,7 @@ class TestIpPortSensor():
         excepted_remote_port = 8080
 
         request_ip_port_sensor = RequestIpPortSensor(
-            state=excepted_state,
+            state=excepted_state.value,
             ip=excepted_ip,
             port=excepted_port,
             process_id=excepted_process_id,
@@ -40,7 +40,7 @@ class TestIpPortSensor():
 
         saved_ip_port_sensor = db_session.execute(stmt).scalar_one()
 
-        assert saved_ip_port_sensor.state == excepted_state
+        assert saved_ip_port_sensor.state == excepted_state.name
         assert saved_ip_port_sensor.ip == excepted_ip
         assert saved_ip_port_sensor.port == excepted_port
         assert saved_ip_port_sensor.process_id == excepted_process_id

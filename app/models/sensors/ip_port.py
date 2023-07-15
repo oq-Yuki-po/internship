@@ -3,12 +3,11 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Optional
 
-from sqlalchemy import Column, Enum, ForeignKey, Integer, String, UniqueConstraint
+from sqlalchemy import Column, ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.orm import relationship
 
 from app.models import BaseModel, FrameModel, session
-from app.models.setting import metadata
-from app.schemas.requests.sensors.ip_port import IpPortType, RequestIpPortSensor
+from app.schemas.requests.sensors.ip_port import RequestIpPortSensor
 
 
 class IpPortSensorModel(BaseModel):
@@ -125,7 +124,7 @@ class IpPortSensorModel(BaseModel):
 
         for request_ip_port_sensor in request_ip_port_sensors:
             ip_port_sensor_model = cls(
-                state=request_ip_port_sensor.state.value,
+                state=request_ip_port_sensor.state.name,
                 ip=request_ip_port_sensor.ip,
                 port=request_ip_port_sensor.port,
                 process_id=request_ip_port_sensor.process_id,

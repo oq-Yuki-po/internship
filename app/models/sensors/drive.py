@@ -118,7 +118,7 @@ class DriveSensorModel(BaseModel):
         for request_drive_sensor in request_drive_sensors:
             drive_sensor_model = cls(
                 drive_letter=request_drive_sensor.drive_letter,
-                drive_type=request_drive_sensor.drive_type.value,
+                drive_type=request_drive_sensor.drive_type.name,
                 volume_name=request_drive_sensor.volume_name,
                 file_system=request_drive_sensor.file_system,
                 all_space=request_drive_sensor.all_space,
