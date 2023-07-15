@@ -23,9 +23,8 @@ async def get_user_sessions() -> GetUserSessionOut:
     """
 
     fetched_user_sessions = FrameModel.fetch_all_user_session()
-
     return GetUserSessionOut(user_sessions=[UserSession(id=user_session.id,
-                                                        sessionId=user_session.session_id,
+                                                        sessionId=str(user_session.session_id),
                                                         startDate=user_session.start_time,
                                                         endDate=user_session.end_time,
                                                         userName=user_session.name,

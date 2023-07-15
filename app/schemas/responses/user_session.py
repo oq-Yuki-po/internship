@@ -22,8 +22,8 @@ class UserSession(BaseModel):
 
     id: int = Field(title='id')
     sessionId: str = Field(title='sessionId', min_length=36, max_length=36)
-    startDate: str = Field(title='startDate', min_length=16, max_length=16)
-    endDate: str = Field(title='endDate', min_length=16, max_length=16)
+    startDate: str = Field(title='startDate', min_length=19, max_length=19)
+    endDate: str = Field(title='endDate', min_length=19, max_length=19)
     userName: str = Field(title='userName', min_length=1, max_length=40)
     machineName: str = Field(title='machineName', min_length=1, max_length=40)
 
