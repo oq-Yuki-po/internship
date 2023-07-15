@@ -1,7 +1,5 @@
 from pydantic import BaseModel, Field
 
-from app.schemas.requests.sensors import DriveType
-
 
 class ResponseDriveSensor(BaseModel):  # pylint: disable=duplicate-code
     """Drive sensor schema for response body validation.
@@ -10,7 +8,7 @@ class ResponseDriveSensor(BaseModel):  # pylint: disable=duplicate-code
     ----------
     drive_letter : str
         Drive letter of the drive.
-    drive_type : DriveType
+    drive_type : str
         Drive type of the drive.
     volume_name : str
         Volume name of the drive.
@@ -23,7 +21,7 @@ class ResponseDriveSensor(BaseModel):  # pylint: disable=duplicate-code
     """
 
     drive_letter: str = Field(title='drive_letter', min_length=1, max_length=1)
-    drive_type: DriveType = Field(title='drive_type')
+    drive_type: str = Field(title='drive_type')
     volume_name: str = Field(title='volume_name', min_length=0, max_length=255)
     file_system: str = Field(title='file_system', min_length=0, max_length=255)
     all_space: str = Field(title='all_space', min_length=0, max_length=16)

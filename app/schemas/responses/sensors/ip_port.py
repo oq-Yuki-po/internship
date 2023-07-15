@@ -1,14 +1,12 @@
 from pydantic import BaseModel, Field
 
-from app.schemas.requests.sensors import IpPortType
-
 
 class ResponseIpPortSensor(BaseModel):  # pylint: disable=duplicate-code
     """IpPort sensor schema for response body validation.
 
     Parameters
     ----------
-    state : IpPortType
+    state : str
         State of the sensor.
     ip : str
         Ip of the sensor.
@@ -22,7 +20,7 @@ class ResponseIpPortSensor(BaseModel):  # pylint: disable=duplicate-code
         Remote port of the sensor.
     """
 
-    state: IpPortType = Field(title='state')
+    state: str = Field(title='state')
     ip: str = Field(title='ip', min_length=1, max_length=39)
     port: int = Field(title='port', ge=1, le=65535)
     process_id: int = Field(title='process_id', ge=0, le=65535)
