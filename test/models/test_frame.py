@@ -3,7 +3,7 @@ import datetime
 from sqlalchemy import select
 
 from app.models import FrameModel
-from app.models.factories import FrameFactory, UserSessionFactory
+from app.models.factories import FrameFactory, UserFactory, UserSessionFactory
 
 
 class TestFrameModel():
@@ -68,7 +68,7 @@ class TestFrameModel():
 
         assert fetched_frame.id == frame_id
         assert fetched_frame.frame_create_time == datetime.datetime.\
-            strptime(test_frame_create_time, '%Y-%m-%d %H:%M:%S').time()
+            strptime(test_frame_create_time, '%Y-%m-%d %H:%M:%S')
         assert fetched_frame.user_session_id == user_session_id
 
     def test_save_data_exists(self, db_session):
@@ -90,3 +90,24 @@ class TestFrameModel():
         frame_id = FrameModel.save(test_frame)
 
         assert frame_id == expected_frame_id
+
+    # def test_fetch_all_user_session(self, db_session):
+    #     """
+    #     test fetch all user session
+    #     check fetched user session id is equal to saved user session id
+    #     """
+
+    #     user_1 = UserFactory(name='test_user_1')
+    #     user_2 = UserFactory(name='test_user_2')
+
+    #     user_session_1 = UserSessionFactory(user=user_1)
+    #     user_session_2 = UserSessionFactory(user=user_2)
+
+    #     frame_1 = FrameFactory(user_session=user_session_1, frame_create_time='2020-10-10 10:10:10')
+    #     frame_2 = FrameFactory(user_session=user_session_1, frame_create_time='2020-10-10 10:15:10')
+    #     frame_3 = FrameFactory(user_session=user_session_2, frame_create_time='2020-10-10 10:20:10')
+    #     frame_4 = FrameFactory(user_session=user_session_2, frame_create_time='2020-10-10 10:25:10')
+
+    #     db_session.add_all([frame_1, frame_2, frame_3, frame_4])
+    #     db_session.commit()
+    #     db_session.close()

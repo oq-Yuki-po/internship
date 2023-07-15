@@ -24,7 +24,7 @@ class FrameFactory(SQLAlchemyModelFactory):
     @factory.lazy_attribute
     def frame_create_time(self):
         date = datetime.now()
-        return date.time()
+        return date
     user_session = SubFactory(UserSessionFactory)
     created_at = datetime.now()
     updated_at = datetime.now()
