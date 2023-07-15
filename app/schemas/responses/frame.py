@@ -8,7 +8,7 @@ from app.schemas.responses.sensors import (
 )
 
 
-class FrameGetOut(BaseModel):
+class GetFrameOut(BaseModel):
 
     record_time: str = Field(title='record_time', min_length=19, max_length=19)
     drive_sensors: list[ResponseDriveSensor] = Field(title='drive_sensor',
