@@ -19,8 +19,8 @@ class IpPortSensorModel(BaseModel):
     ----------
     id : int
         ip port
-    state : IpPortType
-        ip port type enum. listen or establish
+    state : str
+        ip port state. listen or establish
     ip : str
         ip address
     port : int
@@ -38,8 +38,7 @@ class IpPortSensorModel(BaseModel):
     """
     __tablename__ = 'ip_port_sensors'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    state = Column(Enum(IpPortType, metadata=metadata), nullable=False,
-                   comment='ip port type enum. listen or establish')
+    state = Column(String(10), comment='ip port state. listen or establish')
     ip = Column(String(39), nullable=False, comment='ip address')
     port = Column(Integer, nullable=False, comment='port')
     process_id = Column(Integer, nullable=False, comment='process id')
@@ -58,7 +57,7 @@ class IpPortSensorModel(BaseModel):
                      name="unique_ip_port")
 
     def __init__(self,
-                 state: IpPortType,
+                 state: str,
                  ip: str,
                  port: int,
                  process_id: int,
@@ -71,8 +70,8 @@ class IpPortSensorModel(BaseModel):
         """
         Parameters
         ----------
-        state : IpPortType
-            ip port type enum. listen or establish
+        state : str
+            ip port state. listen or establish
         ip : str
             ip address
         port : int

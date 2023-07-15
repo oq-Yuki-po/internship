@@ -3,12 +3,11 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Optional
 
-from sqlalchemy import Column, Enum, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
 from app.models import BaseModel, FrameModel, session
-from app.models.setting import metadata
-from app.schemas.requests.sensors.drive import DriveType, RequestDriveSensor
+from app.schemas.requests.sensors.drive import RequestDriveSensor
 
 
 class DriveSensorModel(BaseModel):
@@ -39,7 +38,7 @@ class DriveSensorModel(BaseModel):
     __tablename__ = 'drive_sensors'
     id = Column(Integer, primary_key=True, autoincrement=True)
     drive_letter = Column(String(1), nullable=False, comment='drive letter')
-    drive_type = Column(Enum(DriveType, metadata=metadata), nullable=False, comment='drive type')
+    drive_type = Column(String(20), nullable=False, comment='drive type')
     volume_name = Column(String(255), nullable=False, comment='volume name')
     file_system = Column(String(255), nullable=False, comment='file system')
     all_space = Column(String(16), nullable=False, comment='all space')
@@ -50,7 +49,7 @@ class DriveSensorModel(BaseModel):
 
     def __init__(self,
                  drive_letter: str,
-                 drive_type: DriveType,
+                 drive_type: str,
                  volume_name: str,
                  file_system: str,
                  all_space: str,
@@ -64,7 +63,7 @@ class DriveSensorModel(BaseModel):
         ----------
         drive_letter : str
             drive letter
-        drive_type : DriveType
+        drive_type : str
             drive type
         volume_name : str
             volume name
