@@ -1,19 +1,6 @@
-from enum import Enum
-
 from pydantic import BaseModel, Field
 
-
-class DriveType(int, Enum):
-    """Drive type enum .
-    url : https://learn.microsoft.com/ja-jp/dotnet/api/system.io.drivetype?view=net-7.0
-    """
-    Unknown = 0
-    NoRootDirectory = 1
-    Removable = 2
-    Fixed = 3
-    Network = 4
-    CDRom = 5
-    Ram = 6
+from app.schemas.requests.sensors import DriveType
 
 
 class ResponseDriveSensor(BaseModel):

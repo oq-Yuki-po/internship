@@ -1,12 +1,6 @@
-from enum import Enum
-
 from pydantic import BaseModel, Field
 
-
-class IpPortType(int, Enum):
-    """IpPort type enum."""
-    listen = 0
-    establish = 1
+from app.schemas.requests.sensors import IpPortType
 
 
 class ResponseIpPortSensor(BaseModel):
