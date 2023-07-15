@@ -91,23 +91,40 @@ class TestFrameModel():
 
         assert frame_id == expected_frame_id
 
-    # def test_fetch_all_user_session(self, db_session):
-    #     """
-    #     test fetch all user session
-    #     check fetched user session id is equal to saved user session id
-    #     """
+    def test_fetch_all_user_session(self, db_session):
+        """
+        test fetch all user session
+        check fetched user session id is equal to saved user session id
+        """
 
-    #     user_1 = UserFactory(name='test_user_1')
-    #     user_2 = UserFactory(name='test_user_2')
+        test_user_name_1 = 'test_user_name_1'
+        test_user_name_2 = 'test_user_name_2'
+        test_user_session_start_time_1 = '2020-10-10 10:10:10'
+        test_user_session_start_time_2 = '2020-10-10 10:15:10'
+        test_user_session_end_time_1 = '2020-10-10 10:20:10'
+        test_user_session_end_time_2 = '2020-10-10 10:25:10'
 
-    #     user_session_1 = UserSessionFactory(user=user_1)
-    #     user_session_2 = UserSessionFactory(user=user_2)
+        user_1 = UserFactory(name=test_user_name_1)
+        user_2 = UserFactory(name=test_user_name_2)
 
-    #     frame_1 = FrameFactory(user_session=user_session_1, frame_create_time='2020-10-10 10:10:10')
-    #     frame_2 = FrameFactory(user_session=user_session_1, frame_create_time='2020-10-10 10:15:10')
-    #     frame_3 = FrameFactory(user_session=user_session_2, frame_create_time='2020-10-10 10:20:10')
-    #     frame_4 = FrameFactory(user_session=user_session_2, frame_create_time='2020-10-10 10:25:10')
+        user_session_1 = UserSessionFactory(user=user_1)
+        user_session_2 = UserSessionFactory(user=user_2)
 
-    #     db_session.add_all([frame_1, frame_2, frame_3, frame_4])
-    #     db_session.commit()
-    #     db_session.close()
+        frame_1 = FrameFactory(user_session=user_session_1, frame_create_time=test_user_session_start_time_1)
+        frame_2 = FrameFactory(user_session=user_session_1, frame_create_time=test_user_session_end_time_1)
+        frame_3 = FrameFactory(user_session=user_session_2, frame_create_time=test_user_session_start_time_2)
+        frame_4 = FrameFactory(user_session=user_session_2, frame_create_time=test_user_session_end_time_2)
+
+        db_session.add_all([frame_1, frame_2, frame_3, frame_4])
+        db_session.commit()
+        db_session.close()
+
+        fetched_user_session = FrameModel.fetch_all_user_session()
+
+        assert len(fetched_user_session) == 2
+        assert fetched_user_session[0].name == test_user_name_1
+        assert fetched_user_session[0].start_time == test_user_session_start_time_1
+        assert fetched_user_session[0].end_time == test_user_session_end_time_1
+        assert fetched_user_session[1].name == test_user_name_2
+        assert fetched_user_session[1].start_time == test_user_session_start_time_2
+        assert fetched_user_session[1].end_time == test_user_session_end_time_2

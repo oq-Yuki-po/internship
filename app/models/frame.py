@@ -143,6 +143,25 @@ class FrameModel(BaseModel):
                                    'YYYY-MM-DD HH24:MI:SS').label('end_time')) \
             .join(UserSessionModel, UserSessionModel.user_id == UserModel.id)\
             .join(cls, cls.user_session_id == UserSessionModel.id)\
-            .group_by(UserModel.id, UserSessionModel.session_id, UserModel.name, UserModel.machine_name)
+            .group_by(UserModel.id, UserSessionModel.session_id, UserModel.name, UserModel.machine_name)\
+            .order_by(UserModel.name)
+
+        """SQL
+        SELECT users.id,
+            user_sessions.session_id,
+            users.name,
+            users.machine_name,
+            to_char(min(frames.frame_create_time), 'YYYY-MM-DD HH24:MI:SS') AS start_time,
+            to_char(max(frames.frame_create_time), 'YYYY-MM-DD HH24:MI:SS') AS end_time
+        FROM users
+        JOIN user_sessions ON user_sessions.user_id = users.id
+        JOIN frames ON frames.user_session_id = user_sessions.id
+        GROUP BY users.id,
+            user_sessions.session_id,
+            users.name,
+            users.machine_name
+        ORDER BY users.name
+        """
+
         fetch_result = session.execute(stmt).all()
         return fetch_result
