@@ -4,8 +4,7 @@ FastApi Template
 ## Run Gunicorn
 
 ```
-cd app
-gunicorn -w 2 -k uvicorn.workers.UvicornWorker main:app --bind 0.0.0.0:8000 --log-config logging.conf --reload
+gunicorn -w 2 -k uvicorn.workers.UvicornWorker app.main:app --bind 0.0.0.0:8000 --log-config app/logging.conf --reload
 ```
 
 access to https://localhost/v1.0/docs
