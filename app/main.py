@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from app.routers import record_router
+from app.routers import record_router, user_session_router
 
 APP_TITLE = "Internship FastAPI Sample"
 APP_VERSION = "1.0"
@@ -11,7 +11,7 @@ app = FastAPI(title=APP_TITLE,
               description=APP_DESCRIPTION)
 
 app.include_router(record_router)
-
+app.include_router(user_session_router)
 
 # @app.on_event("startup")
 # async def startup_event():

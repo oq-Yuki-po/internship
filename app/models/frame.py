@@ -3,10 +3,11 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Optional
 
-from sqlalchemy import TIME, Column, ForeignKey, Integer, select
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, select
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
 
-from app.models import BaseModel, UserSessionModel, session
+from app.models import BaseModel, UserModel, UserSessionModel, session
 
 
 class FrameModel(BaseModel):
@@ -26,7 +27,7 @@ class FrameModel(BaseModel):
     """
     __tablename__ = 'frames'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    frame_create_time = Column(TIME, nullable=False, comment='frame create time')
+    frame_create_time = Column(DateTime, nullable=False, comment='frame create time')
     user_session_id = Column(Integer, ForeignKey(UserSessionModel.id), nullable=False, comment='user session id')
 
     user_session = relationship(UserSessionModel, backref='frames')
@@ -120,4 +121,28 @@ class FrameModel(BaseModel):
 
         fetch_result = session.execute(stmt).one_or_none()
 
+        return fetch_result
+
+    @classmethod
+    def fetch_all_user_session(cls) -> list[tuple[int, int, str, str, str, str]]:
+        """
+        fetch all user sessions and frames start time and end time
+
+        Returns
+        -------
+        list[tuple[int, int, str, str, str, str]]
+            user sessions and frames start time and end time
+        """
+        stmt = select(UserModel.id,
+                      UserSessionModel.session_id,
+                      UserModel.name,
+                      UserModel.machine_name,
+                      func.to_char(func.min(cls.frame_create_time),
+                                   'YYYY-MM-DD HH24:MI:SS').label('start_time'),
+                      func.to_char(func.max(cls.frame_create_time),
+                                   'YYYY-MM-DD HH24:MI:SS').label('end_time')) \
+            .join(UserSessionModel, UserSessionModel.user_id == UserModel.id)\
+            .join(cls, cls.user_session_id == UserSessionModel.id)\
+            .group_by(UserModel.id, UserSessionModel.session_id, UserModel.name, UserModel.machine_name)
+        fetch_result = session.execute(stmt).all()
         return fetch_result
