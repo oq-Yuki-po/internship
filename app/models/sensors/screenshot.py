@@ -7,7 +7,7 @@ from typing import Optional
 
 import cv2
 import numpy as np
-from sqlalchemy import Column, ForeignKey, Integer, Text
+from sqlalchemy import Column, ForeignKey, Integer, Text, select
 from sqlalchemy.orm import relationship
 
 from app.models import BaseModel, FrameModel, session
@@ -181,3 +181,28 @@ class ScreenshotSensorModel(BaseModel):
         cv2.imwrite(f'{image_path}', decoded_image)
 
         return image_path
+
+    @classmethod
+    def fetch_by_frame_id(cls, frame_id: int) -> str:
+        """
+        fetch_by_frame_id
+
+        Parameters
+        ----------
+        frame_id : int
+            frame id
+
+        Returns
+        -------
+        str
+            encoded image
+        """
+
+        stmt = select(cls).where(cls.frame_id == frame_id)
+        screenshot_sensor = session.execute(stmt).scalars().first()
+
+        image_path = screenshot_sensor.image_path
+
+        encoded_image = encode_base64(cv2.imread(image_path))
+
+        return encoded_image

@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Optional
 
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String, select
 from sqlalchemy.orm import relationship
 
 from app.models import BaseModel, FrameModel, session
@@ -127,3 +127,23 @@ class DriveSensorModel(BaseModel):
             )
             drive_sensors.append(drive_sensor_model)
         session.add_all(drive_sensors)
+
+    @classmethod
+    def fetch_by_frame_id(cls, frame_id: int) -> list[DriveSensorModel]:
+        """Fetch drive sensors by frame id.
+
+        Parameters
+        ----------
+        frame_id : int
+            frame id
+
+        Returns
+        -------
+        list[DriveSensorModel]
+            drive sensors
+        """
+        stmt = select(cls).where(cls.frame_id == frame_id)
+
+        drive_sensors = session.execute(stmt).scalars().all()
+
+        return drive_sensors

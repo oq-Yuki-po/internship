@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from factory import SubFactory, Faker
+from factory import Faker, SubFactory
 from factory.alchemy import SQLAlchemyModelFactory
 from factory.fuzzy import FuzzyChoice
 
@@ -39,7 +39,7 @@ class IpPortSensorFactory(SQLAlchemyModelFactory):
         model = IpPortSensorModel
         sqlalchemy_session = session
 
-    state = FuzzyChoice([e.value for e in list(IpPortType)])
+    state = FuzzyChoice([e for e in list(IpPortType)])
     ip = Faker('ipv4')
     port = Faker('port_number')
     process_id = Faker('pyint')

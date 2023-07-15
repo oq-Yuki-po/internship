@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 
+from app import handle_errors
 from app.models import (
     DriveSensorModel,
     FrameModel,
@@ -23,6 +24,7 @@ router = APIRouter(
 @router.post(AppRoutes.Records.POST_URL,
              response_model=RecordSaveOut,
              summary='Create a record')
+@handle_errors
 async def save(record: RecordSaveIn) -> RecordSaveOut:
     # ユーザの登録
     user = record.user

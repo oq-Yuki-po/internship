@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 
+from app import handle_errors
 from app.models.frame import FrameModel
 from app.routers.setting import AppRoutes
 from app.schemas.responses import GetUserSessionOut, UserSession
@@ -13,6 +14,7 @@ router = APIRouter(
 @router.get(AppRoutes.UserSessions.GET_URL,
             response_model=GetUserSessionOut,
             summary='Create a record')
+@handle_errors
 async def get_user_sessions() -> GetUserSessionOut:
     """get user sessions
 

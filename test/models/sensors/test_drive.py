@@ -65,7 +65,7 @@ class TestDriveSensor():
             request_drive_sensors.append(
                 RequestDriveSensor(
                     drive_letter=drive_sensor.drive_letter,
-                    drive_type=drive_sensor.drive_type,
+                    drive_type=drive_sensor.drive_type.value,
                     volume_name=drive_sensor.volume_name,
                     file_system=drive_sensor.file_system,
                     all_space=drive_sensor.all_space,
@@ -82,3 +82,21 @@ class TestDriveSensor():
         saved_drive_sensors = db_session.execute(stmt).scalars().all()
 
         assert len(saved_drive_sensors) == 10
+
+    def test_fetch_by_frame_id(self, db_session):
+        """
+        Test fetch by frame id
+        """
+
+        frame = FrameFactory()
+        drive_sensor_1 = DriveSensorFactory.create(frame=frame)
+        drive_sensor_2 = DriveSensorFactory.create(frame=frame)
+        drive_sensor_3 = DriveSensorFactory.create(frame=frame)
+        db_session.add_all([frame, drive_sensor_1, drive_sensor_2, drive_sensor_3])
+        db_session.flush()
+        frame_id = frame.id
+        db_session.commit()
+
+        saved_drive_sensors = DriveSensorModel.fetch_by_frame_id(frame_id)
+
+        assert len(saved_drive_sensors) == 3

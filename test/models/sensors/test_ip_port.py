@@ -60,15 +60,15 @@ class TestIpPortSensor():
 
         request_ip_port_sensors = []
 
-        for drive_sensor in ip_port_sensors:
+        for ip_port_sensor in ip_port_sensors:
             request_ip_port_sensors.append(
                 RequestIpPortSensor(
-                    state=drive_sensor.state,
-                    ip=drive_sensor.ip,
-                    port=drive_sensor.port,
-                    process_id=drive_sensor.process_id,
-                    remote_ip=drive_sensor.remote_ip,
-                    remote_port=drive_sensor.remote_port
+                    state=ip_port_sensor.state.value,
+                    ip=ip_port_sensor.ip,
+                    port=ip_port_sensor.port,
+                    process_id=ip_port_sensor.process_id,
+                    remote_ip=ip_port_sensor.remote_ip,
+                    remote_port=ip_port_sensor.remote_port
                 )
             )
 
@@ -81,3 +81,20 @@ class TestIpPortSensor():
         saved_drive_sensors = db_session.execute(stmt).scalars().all()
 
         assert len(saved_drive_sensors) == 10
+
+    def test_fetch_by_frame_id(self, db_session):
+        """
+        Test fetch by frame id
+        """
+
+        frame = FrameFactory()
+        ip_port_sensor_1 = IpPortSensorFactory(frame=frame)
+        ip_port_sensor_2 = IpPortSensorFactory(frame=frame)
+        db_session.add_all([frame, ip_port_sensor_1, ip_port_sensor_2])
+        db_session.flush()
+        frame_id = frame.id
+        db_session.commit()
+
+        ip_port_sensor = IpPortSensorModel.fetch_by_frame_id(frame_id=frame_id)
+
+        assert len(ip_port_sensor) == 2

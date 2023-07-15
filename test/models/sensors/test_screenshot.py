@@ -67,3 +67,17 @@ class TestScreenshotSensor():
         os.remove('./screenshots/sample_user/20120101/000000_1.png')
         os.rmdir('./screenshots/sample_user/20120101')
         os.rmdir('./screenshots/sample_user')
+
+    def test_fetch_by_frame_id(self, db_session):
+
+        frame = FrameFactory()
+        db_session.add(frame)
+        db_session.flush()
+        frame_id = frame.id
+        screen_shot_sensor = ScreenshotSensorModel(image_path="test/images/sample.png", frame_id=frame_id)
+        db_session.add(screen_shot_sensor)
+        db_session.commit()
+
+        encoded_screenshot_image = ScreenshotSensorModel.fetch_by_frame_id(frame_id)
+
+        assert type(encoded_screenshot_image) == bytes

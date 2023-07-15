@@ -74,3 +74,17 @@ class TestProcessSensor():
         saved_process_sensors = db_session.execute(stmt).scalars().all()
 
         assert len(saved_process_sensors) == 10
+
+    def test_fetch_by_frame_id(self, db_session):
+
+        frame = FrameFactory()
+        process_sensor_1 = ProcessSensorFactory(frame=frame)
+        process_sensor_2 = ProcessSensorFactory(frame=frame)
+        db_session.add_all([frame, process_sensor_1, process_sensor_2])
+        db_session.flush()
+        frame_id = frame.id
+        db_session.commit()
+
+        process_sensors = ProcessSensorModel.fetch_by_frame_id(frame_id)
+
+        assert len(process_sensors) == 2

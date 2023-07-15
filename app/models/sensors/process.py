@@ -3,8 +3,9 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Optional
 
-from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, select
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
 
 from app.models import BaseModel, FrameModel, session
 from app.schemas.requests.sensors import RequestProcessSensor
@@ -104,3 +105,26 @@ class ProcessSensorModel(BaseModel):
                 frame_id=frame_id
             ))
         session.add_all(process_sensors)
+
+    @classmethod
+    def fetch_by_frame_id(cls, frame_id: int) -> list[tuple[str, int, str, str]]:
+        """Fetch process sensors by frame id.
+
+        Parameters
+        ----------
+        frame_id : int
+            frame id
+
+        Returns
+        -------
+        list[tuple[str, int, str, str]]
+            process sensors
+            file path, process id, process name, started at
+        """
+        stmt = select(cls.file_path,
+                      cls.process_id,
+                      cls.process_name,
+                      func.to_char(cls.started_at, 'YYYY-MM-DD HH24:MI:SS').label('started_at')  # pylint: disable=not-callable
+                      ).where(cls.frame_id == frame_id)
+        process_sensors = session.execute(stmt).all()
+        return process_sensors

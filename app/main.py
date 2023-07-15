@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import record_router, user_session_router
+from app.routers import frame_router, record_router, user_session_router
 
 APP_TITLE = "Internship FastAPI Sample"
 APP_VERSION = "1.0"
@@ -27,3 +27,4 @@ app.add_middleware(
 
 app.include_router(record_router)
 app.include_router(user_session_router)
+app.include_router(frame_router)

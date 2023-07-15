@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Optional
 
-from sqlalchemy import Column, ForeignKey, Integer, String, UniqueConstraint
+from sqlalchemy import Column, ForeignKey, Integer, String, UniqueConstraint, select
 from sqlalchemy.orm import relationship
 
 from app.models import BaseModel, FrameModel, session
@@ -135,3 +135,23 @@ class IpPortSensorModel(BaseModel):
             ip_port_sensors.append(ip_port_sensor_model)
 
         session.add_all(ip_port_sensors)
+
+    @classmethod
+    def fetch_by_frame_id(cls, frame_id: int) -> list[IpPortSensorModel]:
+        """Fetch ip port sensors by frame id.
+
+        Parameters
+        ----------
+        frame_id : int
+            frame id
+
+        Returns
+        -------
+        list[IpPortSensorModel]
+            ip port sensors
+        """
+        stmt = select(cls).where(cls.frame_id == frame_id)
+
+        ip_port_sensors = session.execute(stmt).scalars().all()
+
+        return ip_port_sensors
