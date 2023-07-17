@@ -51,7 +51,7 @@ def encode_base64(image: np.ndarray) -> str:
         base64 image
     """
 
-    dst_data = image.tobytes()
+    _, dst_data = cv2.imencode('.png', image)
 
     dst_str = base64.b64encode(dst_data)
 
