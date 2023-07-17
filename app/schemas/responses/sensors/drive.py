@@ -31,7 +31,7 @@ class ResponseDriveSensor(BaseModel):  # pylint: disable=duplicate-code
         schema_extra = {
             'example': {
                 'drive_letter': 'C',
-                'drive_type': 3,
+                'drive_type': 'Removable',
                 'volume_name': 'Local Disk',
                 'file_system': 'NTFS',
                 'all_space': '512GB',

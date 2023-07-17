@@ -65,7 +65,7 @@ class TestDriveSensor():
             request_drive_sensors.append(
                 RequestDriveSensor(
                     drive_letter=drive_sensor.drive_letter,
-                    drive_type=drive_sensor.drive_type.value,
+                    drive_type=DriveType[drive_sensor.drive_type],
                     volume_name=drive_sensor.volume_name,
                     file_system=drive_sensor.file_system,
                     all_space=drive_sensor.all_space,

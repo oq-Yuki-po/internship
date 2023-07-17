@@ -63,7 +63,7 @@ class TestIpPortSensor():
         for ip_port_sensor in ip_port_sensors:
             request_ip_port_sensors.append(
                 RequestIpPortSensor(
-                    state=ip_port_sensor.state.value,
+                    state=IpPortType[ip_port_sensor.state],
                     ip=ip_port_sensor.ip,
                     port=ip_port_sensor.port,
                     process_id=ip_port_sensor.process_id,

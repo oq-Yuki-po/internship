@@ -31,7 +31,7 @@ class ResponseIpPortSensor(BaseModel):  # pylint: disable=duplicate-code
     class Config:
         schema_extra = {
             'example': {
-                'state': 0,
+                'state': 'listen',
                 'ip': '192.168.12.5',
                 'port': 80,
                 'process_id': 0,

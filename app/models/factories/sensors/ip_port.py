@@ -39,7 +39,7 @@ class IpPortSensorFactory(SQLAlchemyModelFactory):
         model = IpPortSensorModel
         sqlalchemy_session = session
 
-    state = FuzzyChoice([e for e in list(IpPortType)])
+    state = FuzzyChoice([e.name for e in list(IpPortType)])
     ip = Faker('ipv4')
     port = Faker('port_number')
     process_id = Faker('pyint')
